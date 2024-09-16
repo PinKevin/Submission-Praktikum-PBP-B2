@@ -2,12 +2,13 @@
     NIM: 24060122130063
     Tanggal: Senin, 16 September 2024
     Deskripsi: Pemrosesan Form -->
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tugas Praktikum ke-3</title>
+    <title>Form Input Siswa</title>
     <!-- Untuk menghubungkan file CSS Bootstrap dari CDN untuk gaya tampilan yang responsif -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script>
@@ -22,49 +23,6 @@
                 eskulpil.style.display = "none";
             }
         }
-        // UNtuk memeriksa batasan jumlah eskul yang dipilih dan menampilkan pesan eror
-        function checkEskulLimit() {
-            var kelas = document.getElementById("kelas").value;
-            var checkboxes = document.querySelectorAll('input[name="ekstrakurikuler[]"]');
-            var checkedCount = 0;
-
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    checkedCount++;
-                }
-            });
-
-            if (kelas === "X (Kelas 10)" || kelas === "XI (Kelas 11)") {
-                if (checkedCount > 3) {
-                    errorEskul.textContent = "Anda hanya bisa memilih maksimal 3 ekstrakurikuler.";
-                    return false;
-                }
-                else if (checkedCount < 1) {
-                    errorEskul.textContent = "Anda harus memilih minimal 1 ekstrakurikuler.";
-                    return false;
-                }
-                else{
-                    errorEskul.textContent = "";
-                }
-            }
-        }
-
-        // Mengatur event listener untuk checkbox eskul dan tombol reset, untuk
-        // mengatur visibilitas eskul dan menghapus eror saat tombol reset diklik
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input[name="ekstrakurikuler[]"]').forEach(function (checkbox) {
-                checkbox.addEventListener('change', checkEskulLimit);
-            });
-
-            document.querySelector('button[type="reset"]').addEventListener('click', function () {
-                document.getElementById("kelas").selectedIndex = 0;
-                document.getElementById("eskul_Pil").style.display = "none";
-                document.querySelectorAll('input[name="ekstrakurikuler[]"]').forEach(function (checkbox) {
-                    checkbox.checked = false;
-                });
-                document.getElementById('error_eskul').textContent = ""; //Clear error message ketika reset
-            });
-        });
     </script>
 </head>
 <body>
