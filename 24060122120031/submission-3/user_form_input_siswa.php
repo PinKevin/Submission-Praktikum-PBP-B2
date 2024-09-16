@@ -39,7 +39,6 @@ Lab        : PBP B2 -->
         $error_jenis_kelamin = "Jenis kelamin harus diisi";
     }
     if ($kelas != 'XII') {
-        // Jika kelas X atau XI, validasi ekstrakurikuler
         if(!isset($_POST['ekskul']) || count($_POST['ekskul']) < 1 || count($_POST['ekskul']) > 3) {
             $error_ekskul = "Pilih 1-3 ekstrakurikuler";
         }
