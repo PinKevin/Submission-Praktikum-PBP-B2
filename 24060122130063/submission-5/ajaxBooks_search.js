@@ -29,16 +29,3 @@ function searchBook() {
     xmlhttp.send(null);
 }
 
-function showBookDetails(bookId) {
-    var xmlhttp = getXMLHTTPRequest();
-    var url = "get_book_details.php?id=" + bookId;
-
-    xmlhttp.open("GET", url, true);
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            // Show book details in the 'book_details' div
-            document.getElementById('book_details').innerHTML = xmlhttp.responseText;
-        }
-    };
-    xmlhttp.send(null);
-}
