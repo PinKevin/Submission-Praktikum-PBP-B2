@@ -1,20 +1,20 @@
 <?php
+// File         : edit_customer.php
+// Deskripsi    : Menampilkan form edit data customer dan mengupdate data ke database.
 
-// TODO 1: Lakukan koneksi dengan database
-require_once(".db_login.php");
-// TODO 2: Buat variabel $id yang diambil dari query string parameter
-$id = $_GET["id"];
+require_once('./db_login.php');
+$id = $_GET['id'];
 
 // Memeriksa apakah user belum menekan tombol submit
 if (!isset($_POST["submit"])) {
-    // TODO 3: Tulislah dan eksekusi query untuk mengambil informasi customer berdasarkan id
-    $query = " SELECT * FROM customers WHERE customerid=".$id." ";
-    $result = $db->query ($query);
-    if (!$result){
-        die("Could not query the database : <br/>".$db->error);
-    }
-    else {
-        while($row = $result->fetch_object()){
+    $query = "SELECT * FROM customers WHERE customerid = " . $id . " ";
+
+    // Execute the query
+    $result = $db->query($query);
+    if (!$result) {
+        die("Could not query the database: <br />" . $db->error);
+    } else {
+        while ($row = $result->fetch_object()) {
             $name = $row->name;
             $address = $row->address;
             $city = $row->city;
@@ -49,16 +49,19 @@ if (!isset($_POST["submit"])) {
 
     // Update data into database
     if ($valid) {
-        // TODO 4: Jika valid, update data pada database dengan mengeksekusi query yang sesuai
-        $query = "UPDATE customer SET name = '".$name."', address ='".$address."',city = '".$city."' WHERE customerid=".$id." ";
+        // Escape inputs data
+        $address = $db->real_escape_string($address);
+
+        // Assign a query
+        $query = "UPDATE customers SET name='" . $name . "', address ='" . $address . "', city ='" . $city . "' WHERE customerid = " . $id;
+
         // Execute the query
-        $result = $db -> query($query);
-        if(!$result) {
-            die ("Could not query the database : <br/>". $db -> error. "<br/>Query :  ".$query);
-        }
-        else{
-            $db->close ();
-            header("location: view_customer.php");
+        $result = $db->query($query);
+        if (!$result) {
+            die("Could not query the database: <br />" . $db->error . "<br>Query: " . $query);
+        } else {
+            $db->close();
+            header('Location: view_customer.php');
         }
     }
 }

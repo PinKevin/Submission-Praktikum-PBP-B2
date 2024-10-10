@@ -1,7 +1,9 @@
 <?php
-// TODO 1: Buat sebuah sesi baru
+// File         : login.php
+// Deskripsi    : Menampilkan form login dan melakukan login ke halaman admin.php
 
-// TODO 2 : Lakukan koneksi dengan database
+session_start();
+require_once('./db_login.php');
 
 // Memeriksa apakah user sudah submit form
 if (isset($_POST['submit'])) {
@@ -26,26 +28,39 @@ if (isset($_POST['submit'])) {
 
     // Memeriksa validasi
     if ($valid) {
-        // TODO 3: Buatlah query untuk melakukan verifikasi terhadap kredensial yang diberikan
+        // Assign a query
+        $query = "SELECT * FROM admin WHERE email = '" . $email . "' AND password = '" . md5($password) . "'";
 
-        // TODO 4: Eksekusi query
+        // Execute query
+        $result = $db->query($query);
+        if (!$result) {
+            die("Could not query the database: <br />" . $db->error);
+        } else {
+            if ($result->num_rows > 0) {
+                $_SESSION['username'] = $email;
+                header('Location: view_customer.php');
+                exit;
+            } else {
+                echo '<span class "error">Combination of username and password are not correct.</span>';
+            }
+        }
 
-        // TODO 5: Tutup koneksi dengan database
+        $db->close();
     }
 }
 ?>
 <?php include('./header.php') ?>
-<br>
-<div class="card mt-4">
+<div class="card m-5">
     <div class="card-header">Login Form</div>
     <div class="card-body">
         <form method="POST" autocomplete="on" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>">
-            <div class="form-group">
+            <div class="form-group my-2">
                 <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php if (isset($email)) echo $email; ?>">
+                <input type="email" class="form-control" id="email" name="email"
+                    value="<?php if (isset($email)) echo $email; ?>">
                 <div class="error"><?php if (isset($error_email)) echo $error_email ?></div>
             </div>
-            <div class="form-group">
+            <div class="form-group my-2">
                 <label for="password">Password:</label>
                 <input type="password" class="form-control" id="password" name="password" value="">
                 <div class="error"><?php if (isset($error_password)) echo $error_password ?></div>

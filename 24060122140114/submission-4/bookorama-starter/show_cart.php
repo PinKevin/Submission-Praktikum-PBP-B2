@@ -1,12 +1,8 @@
 <?php
-// File         : show_cart.php
-// Deskripsi    : Untuk menambahkan item ke shopping cart dan menampilkan isi shopping cart
-
 session_start();
-error_reporting(0);
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 
-$id = $_GET['id'];
-if ($id != '') {
+if ($id != "") {
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = array();
     }
@@ -18,12 +14,13 @@ if ($id != '') {
     }
 }
 ?>
+
+<!-- Menampilkan isi shopping cart -->
 <?php include('./header.php') ?>
 <br>
-<div class="card mt-4">
+<div class="card">
     <div class="card-header">Shopping Cart</div>
     <div class="card-body">
-        <br>
         <table class="table table-striped">
             <tr>
                 <th>ISBN</th>
@@ -31,43 +28,48 @@ if ($id != '') {
                 <th>Title</th>
                 <th>Price</th>
                 <th>Qty</th>
-                <th>Price * Qty</th>
+                <th>Total</th>
             </tr>
+
             <?php
-            require_once('./lib/db_login.php');
+            require_once('./db_login.php');
             $sum_qty = 0;
             $sum_price = 0;
 
-            if (is_array($_SESSION['cart'])) {
+            if (!empty($_SESSION['cart'])) {
                 foreach ($_SESSION['cart'] as $id => $qty) {
+                    $query = "SELECT * FROM books WHERE isbn='" . $id . "'";
+                    $result = $db->query($query);
+                    $sum_qty += $qty;
 
-                    // TODO 1: Tuliskan dan eksekusi query
+                    if (!$result) {
+                        die("Could not query the database: <br>" . $db->error . "<br>Query: " . $query);
+                    }
 
                     while ($row = $result->fetch_object()) {
                         echo '<tr>';
                         echo '<td>' . $row->isbn . '</td>';
                         echo '<td>' . $row->author . '</td>';
                         echo '<td>' . $row->title . '</td>';
-                        echo '<td>$' . $row->price . '</td>';
+                        echo '<td>Rp ' . number_format($row->price, 2) . '</td>';
                         echo '<td>' . $qty . '</td>';
-                        echo '<td>$' . $row->price * $qty . '</td>';
+                        echo '<td>Rp ' . number_format($row->price * $qty, 2) . '</td>';
                         echo '</tr>';
-
-                        $sum_qty = $sum_qty + $qty;
-                        $sum_price = $sum_price + ($row->price * $qty);
+                        $sum_price += ($row->price * $qty);
                     }
+                    $result->free();
                 }
-                echo '<tr><td></td><td></td><td></td><td></td><td></td><td>$' . $sum_price . '</td>';
-                $result->free();
                 $db->close();
             } else {
-                echo '<tr><td colspan="6" align="center">There is no item in shopping cart</td></tr>';
+                echo '<tr><td colspan="6" align="center">Keranjang belanja Anda kosong. Mulailah berbelanja dan temukan buku-buku favorit Anda!</td></tr>';
             }
             ?>
         </table>
-        Total items = <?php echo $sum_qty ?><br><br>
+        <p>Total items: <?php echo $sum_qty; ?></p>
+        <p>Total harga untuk semua item: Rp <?php echo number_format($sum_price, 2); ?></p>
         <a class="btn btn-primary" href="view_books.php">Continue Shopping</a>
-        <a class="btn btn-danger" href="delete_cart.php">Empty Cart</a>
+        <a class="btn btn-danger" href="delete_cart.php">Empty Cart</a><br />
     </div>
 </div>
+
 <?php include('./footer.php') ?>
