@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Tambah Produk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.875em;
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #3498db;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-right: 10px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="button"] {
+            background-color: #e67e22;
+        }
+
+        input[type="button"]:hover {
+            background-color: #d35400;
+        }
+    </style>
+	<script src="myscript_24060122130082.js"></script>
+</head>
+<body>
+    <h2>Form Tambah Produk</h2>
+<form name="formProduk" onsubmit="return validateForm()" method="post">
+    <div class="form-group">
+        <label for="fusername">Nama Produk:</label>
+        <input type="text" name="fusername" id="fusername" required minlength="5" maxlength="30" />
+        <span id="errUsername" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label for="fdeskripsi">Deskripsi:</label>
+        <textarea name="fdeskripsi" id="fdeskripsi" required minlength="5" maxlength="100" cols="30" rows="5"></textarea>
+        <span id="errDeskripsi" class="error"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="fcategory">Kategori:</label>
+        <select name="fcategory" id="fcategory" required onchange="VsubCategory()">
+            <option value="">--Pilih Kategori--</option>
+            <option value="Baju">Baju</option>
+            <option value="Elektronik">Elektronik</option>
+            <option value="Alat Tulis">Alat Tulis</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="fsubcategory">Sub Kategori:</label>
+        <select name="fsubcategory" id="fsubcategory" required>
+            <option value="">--Pilih Sub Kategori--</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="fprice">Harga Satuan:</label>
+        <input type="number" name="fprice" id="fprice" required />
+        <span id="errPrice" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label>Grosir:</label>
+        <input type="radio" id="wholesaleYes" name="wholesale" value="Yes" onclick="hGrosir()" required> Ya
+        <input type="radio" id="wholesaleNo" name="wholesale" value="No" onclick="hGrosir()"> Tidak
+        <span id="errGrosir" class="error"></span>
+    </div>
+    
+    <div class="form-group">
+        <label for="fpriceG">Harga Grosir:</label>
+        <input type="number" name="fpriceG" id="fpriceG" />
+        <span id="errPriceG" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label>Jasa Kirim:</label>
+        <input type="checkbox" name="shipping" value="JNE"> JNE
+        <input type="checkbox" name="shipping" value="TIKI"> TIKI
+        <input type="checkbox" name="shipping" value="Pos Indonesia"> Pos Indonesia
+        <input type="checkbox" name="shipping" value="SICEPAT"> SICEPAT
+        <span id="errjasakirim" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label for="fCaptcha">Captcha:</label>
+        <input type="text" id="fCaptcha" name="fCaptcha" required="required" />
+        <input type="text" id="CaptchaAns" name="CaptchaAns" required="required" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Submit" />
+        <input type="button" onclick="resetcha()" value="Reset" />
+    </div>
+</form>
+</body>
+</html>

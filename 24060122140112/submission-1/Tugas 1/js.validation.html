@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Produk</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link ke file CSS -->
+    <script src="validation.js" defer></script> <!-- Link ke file JS -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        label {
+            font-size: 12px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 12px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkbox-group label {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            width: 48%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button[type="reset"] {
+            background-color: #f44336;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        span {
+            color: red;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Tambah Produk</h1>
+        <form id="productForm">
+            <!-- Nama Produk -->
+            <label for="namaProduk">Nama Produk:</label>
+            <input type="text" id="namaProduk" name="namaProduk" minlength="5" maxlength="30" required>
+            <span id="namaError"></span><br>
+
+            <!-- Deskripsi Produk -->
+            <label for="deskripsiProduk">Deskripsi Produk:</label>
+            <textarea id="deskripsiProduk" name="deskripsiProduk" minlength="5" maxlength="100" required></textarea>
+            <span id="deskripsiError"></span><br>
+
+            <!-- Kategori -->
+            <label for="kategori">Kategori:</label>
+            <select id="kategori" name="kategori" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Alat Tulis">Alat Tulis</option>
+            </select>
+            <span id="kategoriError"></span><br>
+
+            <!-- Sub Kategori -->
+            <label for="subKategori">Sub Kategori:</label>
+            <select id="subKategori" name="subKategori" required>
+                <option value="">Pilih Sub Kategori</option>
+            </select>
+            <span id="subKategoriError"></span><br>
+
+            <!-- Harga Satuan -->
+            <label for="hargaSatuan">Harga Satuan:</label>
+            <input type="number" id="hargaSatuan" name="hargaSatuan" required>
+            <span id="hargaError"></span><br>
+
+            <!-- Grosir -->
+            <label>Grosir:</label>
+            <input type="radio" id="grosirYa" name="grosir" value="Ya"> Ya
+            <input type="radio" id="grosirTidak" name="grosir" value="Tidak" checked> Tidak<br><br>
+
+            <!-- Harga Grosir -->
+            <label for="hargaGrosir">Harga Grosir:</label>
+            <input type="number" id="hargaGrosir" name="hargaGrosir" disabled>
+            <span id="hargaGrosirError"></span><br>
+
+            <!-- Jasa Kirim -->
+            <label for="jasaKirim">Jasa Kirim:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="jasaKirim" value="JNE"> JNE</label>
+                <label><input type="checkbox" name="jasaKirim" value="TIKI"> TIKI</label>
+                <label><input type="checkbox" name="jasaKirim" value="POS"> POS</label>
+                <label><input type="checkbox" name="jasaKirim" value="GoSend"> GoSend</label>
+                <label><input type="checkbox" name="jasaKirim" value="GrabExpress"> GrabExpress</label>
+            </div>
+            <span id="jasaError"></span><br>
+
+            <!-- Captcha -->
+            <label for="captcha">Captcha:</label>
+            <input type="text" id="captchaInput" name="captchaInput" maxlength="5" required>
+            <span id="captchaGenerated"></span>
+            <span id="captchaError"></span><br>
+
+            <div class="button-group">
+                <button type="reset">Reset</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

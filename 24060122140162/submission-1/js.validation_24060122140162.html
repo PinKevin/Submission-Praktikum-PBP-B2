@@ -1,0 +1,136 @@
+<!-- Nama : Zahra Nisaa' Fitria Nur'Afifah
+ 	 NIM  : 24060122140162
+	 Lab  : B2 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Tambah Data Produk</title>
+    <!-- Link to External JavaScript -->
+    <script src="js/validation_24060122140162.js" defer></script>
+</head>
+<body onload="generateCaptcha()">
+    <div class="form-container">
+        <h2>Form Tambah Data Produk</h2>
+        <form name="formProduk" onsubmit="return validateForm()" method="post" onreset="return resetForm()">
+            <!-- Nama Produk Input -->
+            <label for="namaProduk">Nama Produk:</label>
+            <input type="text" id="namaProduk" name="namaProduk" maxlength="30" required /><br /><br />
+            
+            <!-- Deskripsi Input -->
+            <label for="deskripsi">Deskripsi:</label>
+            <textarea id="deskripsi" name="deskripsi" maxlength="100" required></textarea><br /><br />
+            
+            <!-- Kategori Input -->
+            <label for="kategori">Kategori:</label>
+            <select id="kategori" name="kategori" required onchange="updateSubKategori()">
+                <option value="">--Pilih Kategori--</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Alat Tulis">Alat Tulis</option>
+            </select><br /><br />
+            
+            <!-- Sub Kategori Input -->
+            <label for="subKategori">Sub Kategori:</label>
+            <select id="subKategori" name="subKategori" required>
+                <option value="" disabled selected>---Pilih Sub Kategori---</option>
+            </select><br /><br />
+            
+            <!-- Harga Satuan Input -->
+            <label for="hargaSatuan">Harga Satuan:</label>
+            <input type="text" id="hargaSatuan" name="hargaSatuan" required /><br /><br />
+            
+            <!-- Grosir Radio Buttons -->
+            <label>Grosir:</label>
+            <input type="radio" id="grosirYa" name="grosir" value="Ya" onclick="document.getElementById('hargaGrosir').disabled = false;" /> Ya
+            <input type="radio" id="grosirTidak" name="grosir" value="Tidak" onclick="document.getElementById('hargaGrosir').disabled = true;" /> Tidak<br /><br />
+            
+            <!-- Harga Grosir Input -->
+            <label for="hargaGrosir">Harga Grosir:</label>
+            <input type="text" id="hargaGrosir" name="hargaGrosir" disabled /><br /><br />
+            
+            <!-- Jasa Kirim Checkboxes -->
+            <label>Jasa Kirim:</label><br />
+            <input type="checkbox" id="jne" name="jasaKirim[]" value="JNE" /> JNE<br />
+            <input type="checkbox" id="tiki" name="jasaKirim[]" value="TIKI" /> TIKI<br />
+            <input type="checkbox" id="siCepat" name="jasaKirim[]" value="SiCepat" /> SiCepat<br />
+            <input type="checkbox" id="ninjaExpress" name="jasaKirim[]" value="Ninja Express" /> Ninja Express<br />
+            <input type="checkbox" id="wahana" name="jasaKirim[]" value="Wahana" /> Wahana<br /><br />
+            
+            <!-- Captcha Input -->
+            <label for="captcha">Captcha:</label>
+            <input type="text" id="captcha" name="captcha" readonly />
+            <input type="text" name="captchaInput" required /><br /><br />
+            
+            <!-- Submit and Reset Buttons -->
+            <input type="submit" value="Submit" />
+            <input type="reset" value="Reset" />
+        </form>
+    </div>
+</body>
+        <!-- CSS -->
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+        }
+
+        .form-container {
+        border: 1px solid #1c1cba;
+        padding: 20px;
+        width: 500px;
+        margin-left: 10px; /* Jarak dari tepi kiri halaman */
+        margin-top: 10px; /* Jarak dari atas halaman jika perlu */
+        }
+
+        h2 {
+            text-align: left;
+            font-size: 1.5em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%;
+            padding: 5px;
+            margin-top: 5px;
+            cursor: pointer; /* Menambahkan pointer cursor */
+        }
+        /* Tambahkan warna di tombol Submit dan Reset */
+        input[type="submit"] {
+            background-color: #27a62b; /* Warna hijau */
+            color: white; /* Warna teks */
+            border: none; /* Menghilangkan border */
+        }
+
+        input[type="reset"] {
+            background-color: #f12112; /* Warna merah */
+            color: white; /* Warna teks */
+            border: none; /* Menghilangkan border */
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            opacity: 0.9; /* Efek hover */
+        }
+    </style>
+</html>
