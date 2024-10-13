@@ -1,30 +1,50 @@
-<?php
-function print_mhs($arr_mhs){
-    echo "<table border='1'>";
-    echo "<tr><th>Name</th><th>Score 1</th><th>Score 2</th><th>Score 3</th><th>rata2</th></tr>";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <?php 
+        $array_mhs = array('Abdul' => array(89,90,54),
+            'Budi' => array(98,65,74),
+            'Nina' => array(67,56,84)
+        );
+        
+        //Fungsi menghitung rata
+        function hitung_rata($array) {
+            $jumlah = array_sum($array);
+            $banyak = count($array);
+            return $jumlah / $banyak;
+        }
 
-    foreach ($arr_mhs as $nama_mhs => $nilai) {
-        $rata2 = array_sum($nilai) / count($nilai);
-        echo "<tr>";
-        echo "<td>$nama_mhs</td>";
-        echo "<td>$nilai[0]</td>";
-        echo "<td>$nilai[1]</td>";
-        echo "<td>$nilai[2]</td>";
-        echo "<td>$rata2</td>";
-        echo "</tr>";
-    }
+        // Fungsi untuk menampilkan data
+        function print_mhs($array_mhs) {
+            echo "<table border='1'>";
+            echo "<tr>";
+            echo "<th>Nama</th>";
+            echo "<th>Nilai 1</th>";
+            echo "<th>Nilai 2</th>";
+            echo "<th>Nilai 3</th>";
+            echo "<th>Rata2</th>";
+            echo "</tr>";
+            foreach ($array_mhs as $nama => $nilai) {
+                $rata = hitung_rata($nilai);
+                echo "<tr>";
+                echo "<td>$nama</td>";
+                echo "<td>$nilai[0]</td>";
+                echo "<td>$nilai[1]</td>";
+                echo "<td>$nilai[2]</td>";
+                echo "<td>" . $rata . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        }
 
-    echo "</table>";
-}
+        print_mhs($array_mhs);
 
-$arr_mhs = array(
-    'Abdul' => array(89, 90, 54),
-    'Budi' => array(98, 65, 74),
-    'Nina' => array(67, 56, 84),
-    'Aly' => array(98, 85, 84),
-    'Fyodor' => array(67, 56, 84),
-    
-);
-
-print_mhs($arr_mhs);
-?>
+    ?>
+</body>
+</html>
