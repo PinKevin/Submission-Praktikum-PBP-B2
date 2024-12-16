@@ -1,9 +1,10 @@
-<?php 
-// File         : delete_cart.php
-// Deskripsi    : untuk menghapus session
+<?php
 
-// TODO 1: Inisialisasi data session
+session_start();
+if (isset($_SESSION['cart'])){
+    unset($_SESSION['cart']);
+}
 
-// TODO 2: Hapus session
+header('Location: show_cart.php');
 
-// TODO 3: Redirect ke halaman show_cart.php
+?>
